@@ -1,0 +1,184 @@
+p,
+h3 {
+  margin: 0;
+}
+
+:root {  
+    --card-padding: 20px;
+    --card-height: 700px;
+    --card-skeleton: linear-gradient(#e7e7e7 var(--card-height), transparent 0);
+    --avatar-size: 100px;
+    --avatar-position: var(--card-padding) var(--card-padding);
+    --avatar-skeleton: radial-gradient(circle 16px at center, white 99%, transparent 0
+    );
+    
+    --title-height: 30px;
+    --title-width: 200px;
+    --title-position: var(--card-padding) 180px;
+    --title-skeleton: linear-gradient(white var(--title-height), transparent 0);
+    
+    --desc-line-height: 50px;
+    --desc-line-skeleton: linear-gradient(white var(--desc-line-height), transparent 0);
+    --desc-line-1-width:230px;
+    --desc-line-1-position: var(--card-padding) 440px;
+    --desc-line-2-width:460px;
+    --desc-line-2-position: var(--card-padding) 520px;
+    
+    --footer-height: 100px;
+    --footer-position: 0 calc(var(--card-height) - var(--footer-height));
+    --footer-skeleton: linear-gradient(white var(--footer-height), transparent 0);
+    
+    --blur-width: 200px;
+    --blur-size: var(--blur-width) calc(var(--card-height) - var(--footer-height));
+
+        /*
+      define as separate properties
+    */
+    --card-height: 700px;
+    --card-padding: 24px;
+    --card-skeleton: linear-gradient(#e8e8e8 var(--card-height), transparent 0);
+
+    --title-height: 30px;
+    --title-width: 100px;
+    
+    //var(--avatar-size)+20px
+    --title-position: 140px 60px;
+    --title-skeleton: linear-gradient(white var(--title-height), transparent 0);
+
+    --avatar-size: 100px;
+    --avatar-position: var(--card-padding) var(--card-padding);
+    --avatar-skeleton: radial-gradient(
+      circle calc(var(--avatar-size) / 2),
+      #fff 99%,
+      transparent 0
+    );
+  }
+  
+  /*
+   * Card Skeleton for Loading
+   */
+  
+  @keyframes loading {
+    to {
+      background-position:
+        350% 0,        
+        var(--title-position),  
+        var(--desc-line-1-position),
+        var(--desc-line-2-position),
+        var(--avatar-position),
+        var(--footer-position),
+        0 0
+      ;
+    }
+  }
+
+.card {
+  width: 100%;
+  max-width: 500px;
+  height: 700px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #939191;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: 22px;
+  
+  position: relative;
+
+  &-content {
+    border-radius: 10px 10px 0 0;
+    padding: 20px;
+    height: calc(100% - 100px);
+    background: url(../../assets/img/city.jpg) center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__statistics {
+    height: 70px;
+    background: #f5f7f6;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    color: #878585;
+  }
+
+  &__statistics-info {
+    margin-left: 10px;
+  }
+
+  &_user-info {
+    display: flex;
+    align-items: center;
+
+    .user-avatar-component {
+      margin-right: 20px;
+    }
+  }
+
+  &__main-info {
+    margin-top: auto;
+    background: rgba(30, 47, 77, 0.5);
+    padding: 10px;
+  }
+
+  &.loading {
+
+    &:after {
+        opacity: 1;
+        transition: all 2s;
+    }
+  }
+
+  &:after {
+      opacity: 0;
+      transition: all 2s;
+    content: '';
+    display:block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius:6px;
+    box-shadow: 0 10px 45px rgba(0,0,0, .1); 
+    transition: opacity .2s linear;
+    background-image:
+      linear-gradient(
+        90deg, 
+        rgba(248,245,245, 0) 0, 
+        rgba(248,245,245, .8) 50%, 
+        rgba(248,245,245, 0) 100%
+      ),                          //animation blur
+      var(--title-skeleton),      //title
+      var(--desc-line-skeleton),  //desc1
+      var(--desc-line-skeleton),  //desc2
+      var(--avatar-skeleton),     //avatar
+      var(--footer-skeleton),     //footer bar
+      var(--card-skeleton)        //card
+    ;
+
+    background-size:
+      var(--blur-size),
+      var(--title-width) var(--title-height),
+      var(--desc-line-1-width) var(--desc-line-height),
+      var(--desc-line-2-width) var(--desc-line-height),
+      var(--avatar-size) var(--avatar-size),
+      100% var(--footer-height),
+      100% 100%
+    ;
+    
+    background-position:
+      -150% 0,                      //animation
+      var(--title-position),        //title
+      var(--desc-line-1-position),  //desc1
+      var(--desc-line-2-position),  //desc2
+      var(--avatar-position),       //avatar
+      var(--footer-position),       //footer bar
+      0 0                           //card
+    ;
+
+    background-repeat: no-repeat;
+    animation: loading 3s infinite;
+  }
+}
